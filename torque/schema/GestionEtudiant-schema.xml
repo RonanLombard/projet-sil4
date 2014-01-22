@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database xmlns="http://db.apache.org/torque/4.0/templates/database"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://db.apache.org/torque/4.0/templates/database
+        http://db.apache.org/torque/4.0/templates/database-strict.xsd"
+  name="sil4"
+  defaultIdMethod="native">
+
+<table name="etudiant" description="Table des etudiants">
+    <column
+      name="etudiant_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID Etudiant"/>
+    <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Nom Etudiant"/>
+    <column
+      name="prenom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Prenom Etudiant"/>
+    <column
+      name="login"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Login Etudiant"/>
+    <column
+      name="password"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Password Etudiant"/>
+    <column
+      name="classe_id"
+      required="true"
+      type="INTEGER"
+      description="Classe de l'etudiant"/> 
+    <foreign-key foreignTable="classe">
+      <reference
+        local="classe_id"
+        foreign="classe_id"/>
+    </foreign-key>
+  </table>
+  <table name="professeur" description="Table des professeurs">
+    <column
+      name="professeur_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID professeur"/>
+    <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Nom professeur"/>
+    <column
+      name="prenom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Prenom professeur"/>
+    <column
+      name="login"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Login professeur"/>
+    <column
+      name="password"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Password professeur"/>
+    <column
+      name="matiere_id"
+      required="true"
+      type="INTEGER"
+      description="Matiere enseigne par le professeur"/>
+    <foreign-key foreignTable="matiere">
+      <reference
+        local="matiere_id"
+        foreign="matiere_id"/>
+    </foreign-key>
+  </table>
+  <table name="matiere" description="Table des matieres">
+      <column
+      name="matiere_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID matiere"/>
+    <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Nom matiere"/>
+  </table>
+  <table name="classe" description="Table des classes">
+      <column
+      name="classe_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID classe"/>
+    <column
+      name="nom"
+      required="true"
+      type="VARCHAR"
+      size="128"
+      description="Nom classe"/>
+  </table>
+  <table name="matiere_classe" description="Table des matieres suivi par une classe">
+      <column
+      name="matiere_classe_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID matiere classe"/>
+      <column
+      name="classe_id"
+      required="true"
+      type="INTEGER"
+      description="ID classe"/>
+    <column
+      name="matiere_id"
+      required="true"
+      type="INTEGER"
+      description="ID matiere"/>
+    <foreign-key foreignTable="matiere">
+      <reference
+        local="matiere_id"
+        foreign="matiere_id"/>
+    </foreign-key>
+    <foreign-key foreignTable="classe">
+      <reference
+        local="classe_id"
+        foreign="classe_id"/>
+    </foreign-key>
+  </table>
+  <table name="note" description="Table des notes">
+      <column
+      name="note_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID note"/>
+      <column
+      name="etudiant_id"
+      required="true"
+      type="INTEGER"
+      description="ID etudiant"/>
+    <column
+      name="matiere_id"
+      required="true"
+      type="INTEGER"
+      description="ID matiere"/>
+    <column
+      name="valeur"
+      required="true"
+      type="INTEGER"
+      description="Valeur de la note"/>
+    <foreign-key foreignTable="etudiant">
+      <reference
+        local="etudiant_id"
+        foreign="etudiant_id"/>
+    </foreign-key>
+    <foreign-key foreignTable="matiere">
+      <reference
+        local="matiere_id"
+        foreign="matiere_id"/>
+    </foreign-key>
+  </table>
+  <table name="absence" description="Table des absences">
+      <column
+      name="absence_id"
+      required="true"
+      primaryKey="true"
+      type="INTEGER"
+      description="ID absence"/>
+      <column
+      name="etudiant_id"
+      required="true"
+      type="INTEGER"
+      description="ID etudiant"/>
+    <column
+      name="date"
+      required="true"
+      type="DATE"
+      description="date de l'absence"/>
+    <column
+      name="justifie"
+      required="true"
+      type="BOOLEANCHAR"
+      description="valeur de l'absence"/>
+    <foreign-key foreignTable="etudiant">
+      <reference
+        local="etudiant_id"
+        foreign="etudiant_id"/>
+    </foreign-key>
+  </table>
+</database>
